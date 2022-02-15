@@ -5,7 +5,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { App } from "./pages/app";
 import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+import { Sitedetail } from "./pages/sitedetail";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -29,7 +29,7 @@ const Layout = () => {
 						<Route exact path="/demo" component={Demo} />
 						<Route exact path="/app" component={App} />
 						<Route exact path="/modal" component={Modalbox} />
-						<Route exact path="/single/:theid" component={Single} />
+						<Route exact path="/sitedetail/:theid" component={Sitedetail} />
 						<Route path="*" component={Error404} />
 					</Switch>
 					<Footer />

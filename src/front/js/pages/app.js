@@ -27,7 +27,7 @@ export const App = () => {
 							style={{ background: item.background }}>
 							<div className="col-1"> img </div>
 							<div className="col-1">
-								<Link to={"/single/" + index}>
+								<Link to={"/sitedetail/" + index}>
 									<span>{item.code}</span>
 								</Link>
 							</div>
@@ -37,7 +37,7 @@ export const App = () => {
 							<div className="col-3">{item.contact}</div>
 
 							<div className="col-1 btn btn-success" type="button">
-								<Link to={"/single/" + index} className="link">
+								<Link to={"/sitedetail/" + index} className="link">
 									<span>VER</span>
 								</Link>
 							</div>

@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
-import Single1 from "../pages/single";
 
 export default function Modalbox() {
 	const [show, setShow] = useState(false);
