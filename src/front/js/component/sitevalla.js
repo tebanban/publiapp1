@@ -10,18 +10,6 @@ export const Sitevalla = () => {
 	return (
 		<div>
 			<Form.Group>
-				<label htmlFor="inputAddress">Ubicación</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
-			</Form.Group>
-			<Form.Group>
-				<label htmlFor="inputAddress">Estado</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
-			</Form.Group>
-			<Form.Group>
-				<label htmlFor="inputAddress">Iluminación</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
-			</Form.Group>
-			<Form.Group>
 				<label htmlFor="inputState">Dimensiones</label>
 				<select id="inputState" className="form-control">
 					<option selected>Seleccione...</option>
@@ -31,6 +19,35 @@ export const Sitevalla = () => {
 					<option>4.50 x 14.00 metros</option>
 					<option>8.50 x 33.30 metros</option>
 					<option>5.20 x 7.00 metros</option>
+				</select>
+			</Form.Group>
+			<Form.Group>
+				<label htmlFor="inputAddress">Dirección</label>
+				<input
+					type="text"
+					className="form-control"
+					id="inputAddress"
+					placeholder={store.site[params.theid].address}></input>
+			</Form.Group>
+			<Form.Group>
+				<label htmlFor="inputAddress">Ruta</label>
+				<input
+					type="text"
+					className="form-control"
+					id="inputAddress"
+					placeholder={store.site[params.theid].address}></input>
+			</Form.Group>
+			<Form.Group>
+				<label htmlFor="inputState">Provincia</label>
+				<select id="inputState" className="form-control">
+					<option selected>Seleccione la provincia...</option>
+					<option>San José</option>
+					<option>Alajuela</option>
+					<option>Heredia</option>
+					<option>Cartago</option>
+					<option>Puntarenas</option>
+					<option>Guanacaste</option>
+					<option>Limón</option>
 				</select>
 			</Form.Group>
 		</div>

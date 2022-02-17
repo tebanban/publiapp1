@@ -5,6 +5,7 @@ import rigoImageUrl from "../../img/SJ36-A_Garantias_Sociales.jpg";
 import { Card, Col, Row, Form, CardImg, Container, Tab, Tabs } from "react-bootstrap";
 import { Sitevalla } from "../component/sitevalla";
 import { Siteowner } from "../component/siteowner";
+import { Sitestatus } from "../component/sitestatus";
 
 export const Sitedetail = () => {
 	const { store, actions } = useContext(Context);
@@ -23,19 +24,21 @@ export const Sitedetail = () => {
 							<CardImg src={rigoImageUrl} fluid="true" top />
 						</Col>
 						<Col md={9}>
-							<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
-								<Tab eventKey="home" title="Valla">
+							<Tabs defaultActiveKey="status" id="uncontrolled-tab-example" className="mb-3">
+								<Tab eventKey="valla" title="Valla">
 									<div>
 										<Sitevalla />
 									</div>
 								</Tab>
-								<Tab eventKey="profile" title="Propietario">
+								<Tab eventKey="contact" title="Contacto">
 									<div>
 										<Siteowner />
 									</div>
 								</Tab>
-								<Tab eventKey="contact" title="Mas..." disabled>
-									<div>tttttttt</div>
+								<Tab eventKey="status" title="Estatus">
+									<div>
+										<Sitestatus />
+									</div>
 								</Tab>
 							</Tabs>
 						</Col>

@@ -11,20 +11,36 @@ export const Siteowner = () => {
 	return (
 		<div>
 			<Form.Group>
-				<label htmlFor="inputAddress">Propietario</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+				<label htmlFor="inputAddress">Nombre</label>
+				<input
+					type="text"
+					className="form-control"
+					id="inputAddress"
+					placeholder={store.site[params.theid].owner}></input>
 			</Form.Group>
 			<Form.Group>
-				<label htmlFor="inputAddress">Dirección</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+				<label htmlFor="inputAddress">Empresa</label>
+				<input
+					type="text"
+					className="form-control"
+					id="inputAddress"
+					placeholder={store.site[params.theid].owner}></input>
 			</Form.Group>
 			<Form.Group>
 				<label htmlFor="inputAddress">Teléfono</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+				<input
+					type="text"
+					className="form-control"
+					id="inputAddress"
+					placeholder={store.site[params.theid].phone}></input>
 			</Form.Group>
 			<Form.Group>
 				<label htmlFor="inputAddress">Email</label>
-				<input type="text" className="form-control" id="inputAddress" placeholder=""></input>
+				<input
+					type="text"
+					className="form-control"
+					id="inputAddress"
+					placeholder={store.site[params.theid].email}></input>
 			</Form.Group>
 		</div>
 	);
