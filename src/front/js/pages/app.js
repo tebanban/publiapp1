@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
+
 import { Col, Row, Form } from "react-bootstrap";
 
 export const App = () => {
@@ -13,9 +14,11 @@ export const App = () => {
 			return index;
 		} else if (index.code.toLowerCase().includes(query.toLowerCase())) {
 			return index;
+		} else if (index.status.toLowerCase().includes(query.toLowerCase())) {
+			return index;
 		}
 	});
-	console.log(query);
+
 	return (
 		<div>
 			<div className="container">
@@ -30,10 +33,10 @@ export const App = () => {
 					</Col>
 					<Col md={4}>
 						<Form.Group>
-							<select id="inputState" className="form-control">
+							<select onChange={e => setQuery(e.target.value)} id="inputState" className="form-control">
 								<option defaultValue>Filtrar por estado...</option>
-								<option>Alquilada</option>
-								<option>Libre</option>
+								<option>Arrendada</option>
+								<option>Inactiva</option>
 								<option>Reservada</option>
 								<option>Deshabilitada</option>
 							</select>
@@ -54,35 +57,31 @@ export const App = () => {
 						</Form.Group>
 					</Col>
 				</Row>
-				<div className="listheader list-group-item d-flex justify-content-between">
+				<Row className="listheader list-group-item d-flex justify-content-between">
 					<div className="col-1"> Código </div>
-					<div className="col-3"> Nombre</div>
+					<div className="col-3"> Propietario</div>
 					<div className="col-3"> Ubicación</div>
-					<div className="col-3"> Contacto</div>
-					<div className="col-1"> Accion</div>
-				</div>
+					<div className="col-3"> Estado</div>
+					<div className="col-2"> Cliente</div>
+				</Row>
 				{data.map((item, index) => {
 					return (
-						<div
+						<Row
 							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
+							className={
+								item.status === "Arrendada" ? "arrendada list-group-item" : "disponible list-group-item"
+							}>
 							<div className="col-1">
 								<Link to={"/sitedetail/" + index}>
 									<span>{item.code}</span>
 								</Link>
 							</div>
 
-							<div className="col-3">{item.title}</div>
+							<div className="col-3">{item.owner}</div>
 							<div className="col-3">{item.address}</div>
-							<div className="col-3">{item.contact}</div>
-
-							<div className="col-1 btn btn-success" type="button">
-								<Link to={"/sitedetail/" + index} className="link">
-									<span>VER</span>
-								</Link>
-							</div>
-						</div>
+							<div className="col-3">{item.status}</div>
+							<div className="col-2">{item.client}</div>
+						</Row>
 					);
 				})}
 			</div>
