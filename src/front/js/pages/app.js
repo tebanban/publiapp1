@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 
-import { Col, Row, Form } from "react-bootstrap";
+import { Col, Row, Form, Table } from "react-bootstrap";
 
 export const App = () => {
 	const { store, actions } = useContext(Context);
@@ -57,33 +57,37 @@ export const App = () => {
 						</Form.Group>
 					</Col>
 				</Row>
-				<Row className="listheader list-group-item d-flex justify-content-between">
-					<div className="col-1"> Código </div>
-					<div className="col-3"> Propietario</div>
-					<div className="col-3"> Ubicación</div>
-					<div className="col-3"> Estado</div>
-					<div className="col-2"> Cliente</div>
-				</Row>
-				{data.map((item, index) => {
-					return (
-						<Row
-							key={index}
-							className={
-								item.status === "Arrendada" ? "arrendada list-group-item" : "disponible list-group-item"
-							}>
-							<div className="col-1">
-								<Link to={"/sitedetail/" + index}>
-									<span>{item.code}</span>
-								</Link>
-							</div>
+				<Table>
+					<th className="listheader list-group-item d-flex">
+						<div className="col-1">Código</div>
+						<div className="col-1">Estatus</div>
+						<div className="col-2">Cliente</div>
+						<div className="col-4">Ubicación</div>
+						<div className="col-4">Propietario</div>
+					</th>
+					{data.map((item, index) => {
+						return (
+							<tr
+								key={index}
+								className={
+									item.status === "Arrendada"
+										? "arrendada list-group-item"
+										: "disponible list-group-item"
+								}>
+								<td className="col-1 codeButton">
+									<Link to={"/sitedetail/" + index}>
+										<span>{item.code}</span>
+									</Link>
+								</td>
 
-							<div className="col-3">{item.owner}</div>
-							<div className="col-3">{item.address}</div>
-							<div className="col-3">{item.status}</div>
-							<div className="col-2">{item.client}</div>
-						</Row>
-					);
-				})}
+								<td className="col-1">{item.status}</td>
+								<td className="col-2">{item.client}</td>
+								<td className="col-4">{item.owner}</td>
+								<td className="col-4">{item.address}</td>
+							</tr>
+						);
+					})}
+				</Table>
 			</div>
 			<br />
 			<Link to="/">
