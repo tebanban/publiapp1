@@ -6,6 +6,8 @@ import "../../styles/home.scss";
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
+	console.log(process.env.VARIABLE_NAME);
+
 	return (
 		<div className="text-center mt-5">
 			<p className="m-5">

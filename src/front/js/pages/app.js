@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 
 import { Col, Row, Form, Table } from "react-bootstrap";
+import Modalbox from "../component/modal";
 
 export const App = () => {
 	const { store, actions } = useContext(Context);
@@ -93,6 +94,7 @@ export const App = () => {
 			<Link to="/">
 				<button className="btn btn-primary">Regresar</button>
 			</Link>
+			<Modalbox />
 		</div>
 	);
 };
