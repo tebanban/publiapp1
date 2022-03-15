@@ -13,8 +13,8 @@ export const Sitestatus = () => {
 			<Form.Group>
 				<label htmlFor="inputState">Esta valla se encuentra...</label>
 				<select id="inputState" className="form-control">
-					<option selected>Seleccione...</option>
-					<option>Alquilada</option>
+					<option>Seleccione...</option>
+					<option selected>Alquilada</option>
 					<option>Reservada</option>
 					<option>Libre</option>
 					<option>En mantenimiento</option>

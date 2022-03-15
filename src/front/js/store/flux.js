@@ -17,7 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 
-			site: Tempdata //Data object imported
+			site: Tempdata //json object imported
 		},
 		actions: {
 			// Use getActions to call a function within a fuction

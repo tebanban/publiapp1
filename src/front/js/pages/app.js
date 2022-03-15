@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
-
 import { Col, Row, Form, Table } from "react-bootstrap";
-import Modalbox from "../component/modal";
 
 export const App = () => {
 	const { store, actions } = useContext(Context);
 	const [query, setQuery] = useState("");
+	const [singleIndex, setSingleIndex] = useState();
 
+	//Filter by status
 	const data = store.site.filter(index => {
 		if (query === "") {
 			return index;
@@ -59,42 +59,46 @@ export const App = () => {
 					</Col>
 				</Row>
 				<Table>
-					<th className="listheader list-group-item d-flex">
-						<div className="col-1">Código</div>
-						<div className="col-1">Estatus</div>
-						<div className="col-2">Cliente</div>
-						<div className="col-4">Ubicación</div>
-						<div className="col-4">Propietario</div>
-					</th>
-					{data.map((item, index) => {
-						return (
-							<tr
-								key={index}
-								className={
-									item.status === "Arrendada"
-										? "arrendada list-group-item"
-										: "disponible list-group-item"
-								}>
-								<td className="col-1 codeButton">
-									<Link to={"/sitedetail/" + index}>
-										<span>{item.code}</span>
-									</Link>
-								</td>
+					<thead className="listheader list-group-item d-flex">
+						<tr>
+							<th className="col-1">Código</th>
+							<th className="col-1">Estatus</th>
+							<th className="col-2">Cliente</th>
+							<th className="col-4">Ubicación</th>
+							<th className="col-4">Propietario</th>
+						</tr>
+					</thead>
+					<tbody>
+						{data.map((item, index) => {
+							return (
+								<tr
+									key={index}
+									className={
+										item.status === "Arrendada"
+											? "arrendada list-group-item"
+											: "disponible list-group-item"
+									}>
+									<td className="col-1 codeButton">
+										<Link to={"/sitedetail/" + index}>
+											<span>{item.code}</span>
+										</Link>
+									</td>
 
-								<td className="col-1">{item.status}</td>
-								<td className="col-2">{item.client}</td>
-								<td className="col-4">{item.owner}</td>
-								<td className="col-4">{item.address}</td>
-							</tr>
-						);
-					})}
+									<td className="col-1">{item.status}</td>
+									<td className="col-2">{item.client}</td>
+									<td className="col-4">{item.owner}</td>
+									<td className="col-4">{item.address}</td>
+								</tr>
+							);
+						})}
+					</tbody>
 				</Table>
 			</div>
 			<br />
+
 			<Link to="/">
 				<button className="btn btn-primary">Regresar</button>
 			</Link>
-			<Modalbox />
 		</div>
 	);
 };

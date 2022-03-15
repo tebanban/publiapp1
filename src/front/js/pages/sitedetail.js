@@ -21,7 +21,7 @@ export const Sitedetail = () => {
 				<Container className="p-5 mb-4 bg-light rounded-3">
 					<Row>
 						<Col md={3}>
-							<CardImg src={rigoImageUrl} fluid="true" top />
+							<CardImg src={rigoImageUrl} fluid="true" />
 						</Col>
 						<Col md={9}>
 							<Tabs defaultActiveKey="status" id="uncontrolled-tab-example" className="mb-3">
