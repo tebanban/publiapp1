@@ -26,7 +26,7 @@ class Site(db.Model):
     type = db.Column(db.String(50), unique=False, nullable=False)
     price_low = db.Column(db.Integer, unique=False, nullable=True)
     price_high = db.Column(db.Integer, unique=False, nullable=True)
-    view = db.Column(db.String(50), unique=False, nullable=False)
+    view = db.Column(db.String(150), unique=False, nullable=False)
     route = db.Column(db.String(150), unique=False, nullable=False)
     start_date = db.Column(db.Date, unique=False, nullable=True)
     due_date = db.Column(db.Date, unique=False, nullable=True)
