@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/app.scss";
 import { Col, Row, Form, Table } from "react-bootstrap";
+import { Sitedetail } from "../pages/sitedetail";
 
 export const App = () => {
 	const { store, actions } = useContext(Context);
@@ -59,8 +60,8 @@ export const App = () => {
 					</Col>
 				</Row>
 				<Table>
-					<thead className="listheader list-group-item d-flex">
-						<tr>
+					<thead>
+						<tr className="listheader  d-flex">
 							<th className="col-1">Código</th>
 							<th className="col-1">Estatus</th>
 							<th className="col-2">Cliente</th>
@@ -71,13 +72,7 @@ export const App = () => {
 					<tbody>
 						{data.map((item, index) => {
 							return (
-								<tr
-									key={index}
-									className={
-										item.status === "Arrendada"
-											? "arrendada list-group-item"
-											: "disponible list-group-item"
-									}>
+								<tr key={index} className={item.status === "Arrendada" ? "arrendada " : "disponible "}>
 									<td className="col-1 codeButton">
 										<Link to={"/sitedetail/" + index}>
 											<span>{item.code}</span>
