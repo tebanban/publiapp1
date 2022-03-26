@@ -23,7 +23,9 @@ mysql url: mysql://puadmin:*****@mysql.nuevo.publiexcr.com/sisvallas2021
 # To install Mysql module: 
  pip install mysqlclient
 
- # dreamhost
+# Flask Error: Target database is not up to date.
+flask db stamp head
+
+# dreamhost
  Connect to your new database from the command line with:
- mysql -u puadmin -p -h mysql.nuevo.publiexcr.com sisvallas21
- You can also go to http://mysql.nuevo.publiexcr.com/ to   manage your MySQL database from the web. 
+ 
