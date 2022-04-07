@@ -5,15 +5,17 @@ db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    name = db.Column(db.String(150), unique=False, nullable=False) 
+    email = db.Column(db.String(120), unique=True, nullable=False) 
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     vallas= db.relationship('Valla', backref='user', lazy=True)   # relationship
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
     clients= db.relationship('Client', backref='user', lazy=True)    # relationship
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)  #FK
 
     def __repr__(self):
-        return '<User %r>' % self.email
+        return '<User %r>' % self.name
 
     def serialize(self):
         return {
@@ -21,6 +23,21 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False, nullable=False)
+    users= db.relationship('User', backref='role', lazy=True)   # relationship
+
+    def __repr__(self):
+        return '%r' % self.name    # <'Role %r'> % self.name
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+        }
+
         
 class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -67,9 +84,9 @@ class Valla(db.Model):
     status = db.Column(db.String(40), unique=False, nullable=True)
     register_date = db.Column(db.Date, unique=False, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=False) #FK
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False) #FK
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False) #FK
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=True) #FK
     
     def __repr__(self):
         return '<Valla %r>' % self.valla_code
