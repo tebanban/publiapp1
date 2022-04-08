@@ -1,4 +1,5 @@
 from enum import unique
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -9,6 +10,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False) 
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     vallas= db.relationship('Valla', backref='user', lazy=True)   # relationship
     orders= db.relationship('Order', backref='user', lazy=True)    # relationship
     clients= db.relationship('Client', backref='user', lazy=True)    # relationship
@@ -42,13 +44,13 @@ class Role(db.Model):
 class Order(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     order_price = db.Column(db.Integer, unique=False)
-    register_date = db.Column(db.Date, unique=False, nullable=False)
-    start_date = db.Column(db.Date, unique=False, nullable=False)
-    finish_date = db.Column(db.Date, unique=False, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
+    start_date = db.Column(db.DateTime, unique=False, nullable=False)
+    finish_date = db.Column(db.DateTime, unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)  #FK
     vallas= db.relationship('Valla', backref='order', lazy=True)   # relationship
-    payment= db.relationship('Payment', backref='order', lazy=True)    # relationship
+    payments= db.relationship('Payment', backref='order', lazy=True)    # relationship
     
     def __repr__(self):
         return '<Order %r>' % self.id
@@ -59,8 +61,8 @@ class Order(db.Model):
         }
 class Payment(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    due_date = db.Column(db.Date, unique=False, nullable=True)
-    payment_date = db.Column(db.Date, unique=False, nullable=True)
+    due_date = db.Column(db.DateTime, unique=False, nullable=True)
+    payment_date = db.Column(db.DateTime, unique=False, nullable=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)  #FK
     
     def __repr__(self):
@@ -75,48 +77,92 @@ class Valla(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
     name = db.Column(db.String(150), unique=False, nullable=False)
-    size = db.Column(db.String(50), unique=False, nullable=False)
-    structure = db.Column(db.String(50), unique=False, nullable=False)
-    price_low = db.Column(db.Float, unique=False, nullable=True)
+    format = db.Column(db.String(20), unique=False,default='Horizontal / Vertical', nullable= False)
+    ligth= db.Column(db.Boolean, default='True') 
+    price_low = db.Column(db.Float, unique=False, nullable=True)  
     price_high = db.Column(db.Float, unique=False, nullable=True)
     view = db.Column(db.String(150), unique=False, nullable=False)
     route = db.Column(db.String(150), unique=False, nullable=False)
-    status = db.Column(db.String(40), unique=False, nullable=True)
-    register_date = db.Column(db.Date, unique=False, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
+    comment = db.Column(db.Text, unique=False, nullable=True) 
     owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'), nullable=False) #FK
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=True) #FK
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #FK
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=True) #FK
+    status_id = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=True) #FK
+    size_id = db.Column(db.Integer, db.ForeignKey('size.id'), nullable=True) #FK
+    type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=False) #FK   
     
     def __repr__(self):
-        return '<Valla %r>' % self.valla_code
+        return '<Valla %r>' % self.code
 
     def serialize(self):
         return {
             "id": self.id,
             "valla_code": self.code,
             "valla_name": self.name,
-            "size": self.size,
-            "structure": self.structure,
+            "format": self.format,
             "price_low": self.price_low,
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
-            "status": self.status,
             "register_date": self.register_date, 
         }
+        
+class Status(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), unique=False, nullable=True)
+    vallas= db.relationship('Valla', backref='status', lazy=True)   # relationship
+    
+    def __repr__(self):
+        return '<%r>' % self.name
+    
+    def serialize(self):
+        return {
+            "status_id": self.id,
+            "self.name": self.name,
+        }   
+        
+class Size(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(40), unique=False, nullable=True)
+    vallas= db.relationship('Valla', backref='size', lazy=True)   # relationship
+    
+    def __repr__(self):
+        return '<%r>' % self.name
+    
+    def serialize(self):
+        return {
+            "size_id": self.id,
+            "self.name": self.name,
+        }  
+        
+class Type(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=False, nullable=True)
+    vallas= db.relationship('Valla', backref='type', lazy=True)   # relationship
+    
+    def __repr__(self):
+        return '<%r>' % self.name
+    
+    def serialize(self):
+        return {
+            "size_id": self.id,
+            "self.name": self.name,
+        }                                      
 
 class Owner(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
     name= db.Column(db.String(150), unique=False, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
     phone= db.Column(db.String(30), unique=True, nullable=False)
     email= db.Column(db.String(30), unique=True, nullable=False)
     company= db.Column(db.String(80), unique=True, nullable=True)
     vallas= db.relationship('Valla', backref='owner', lazy=True)   # relationship
     
     def __repr__(self):
-        return '<Owner %r>' % self.name
+        return '<%r>' % self.name
     
     def serialize(self):
         return {
@@ -132,6 +178,7 @@ class Client(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
     name= db.Column(db.String(150), unique=False, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
     phone= db.Column(db.String(30), unique=True, nullable=False)
     email= db.Column(db.String(30), unique=True, nullable=False)
     company= db.Column(db.String(80), unique=True, nullable=True)
@@ -141,7 +188,7 @@ class Client(db.Model):
     
     
     def __repr__(self):
-        return '<Client %r>' % self.name
+        return '<%r>' % self.name
     
     def serialize(self):
         return {
