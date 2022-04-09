@@ -32,3 +32,11 @@ flask db stamp head
  # Github greenlet error
   pip install greenlet
  
+ # npm ERR!  
+ Node sass version error
+ $ rm -r node_modules  (remove node_modules)
+ $ nvm ls-remote
+ $ nvm install v14.18.1
+ $ nvm use v14.18.1
+ $ npm install
+ 
