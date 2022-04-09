@@ -28,4 +28,7 @@ flask db stamp head
 
 # dreamhost
  Connect to your new database from the command line with:
+
+ # Github greenlet error
+  pip install greenlet
  
