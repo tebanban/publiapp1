@@ -29,3 +29,10 @@ flask db stamp head
 # dreamhost
  Connect to your new database from the command line with:
  
+# Gitpod greenlet error
+pip install greenlet
+
+# npm ERR!
+nvm install v14.18.1 
+nvm use v14.18.1
+npm install
