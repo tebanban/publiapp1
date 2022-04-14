@@ -18,7 +18,7 @@ pipenv run start
 
 
 # To modify URL at .env
-mysql url: mysql://puadmin:*****@mysql.nuevo.publiexcr.com/sisvallas2021
+mysql url: mysql://puadmin:*****@mysql.nuevo.publiexcr.com/sisvallas21
 
 # To install Mysql module: 
  pip install mysqlclient
@@ -34,5 +34,13 @@ pip install greenlet
 
 # npm ERR!
 nvm install v14.18.1 
-nvm use v14.18.1
+nvm use v14.18.1  ( optional)
 npm install
+
+# psql FATAL password authentication failed for user "postgres" 
+psql -U default (terminal)
+\password  (psql shell)
+Enter new password:
+
+# Install PostgreSQL on WSL (ubuntu)
+https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-database
