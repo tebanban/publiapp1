@@ -22,7 +22,10 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "name":self.name,
             "email": self.email,
+            "is_active":self.is_active,
+
             # do not serialize the password, its a security breach
         }
 
@@ -106,7 +109,7 @@ class Valla(db.Model):
             "price_high": self.price_high,
             "view": self.view,
             "route":self.route,
-            "register_date": self.register_date, 
+            "status_id":self.status_id,
         }
         
 class Status(db.Model):
